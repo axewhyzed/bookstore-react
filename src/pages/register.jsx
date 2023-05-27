@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import "../App.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -12,6 +12,7 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import authService from "../services/auth.service";
+import "react-toastify/dist/ReactToastify.css";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -36,13 +37,17 @@ const Register = () => {
     confirmPassword: "",
   };
 
-  const roleIdRef = useRef(null); // Create a ref using useRef
-
   const handleSubmit = (values) => {
     delete values.confirmPassword;
     console.log("Submitted:", values);
     authService.create(values).then((res) => {
       toast.success("Successfully Registered");
+    }).catch((error) => {
+      if (error.response && error.response.status === 409) {
+        toast.error(error);
+      } else {
+        toast.error("An error occurred");
+      }
     });
   };
 
@@ -114,7 +119,6 @@ const Register = () => {
                 name="roleId"
                 label="Roles"
                 variant="outlined"
-                inputProps={{ ref: roleIdRef }}
                 fullWidth
                 margin="dense"
               >

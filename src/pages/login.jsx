@@ -1,9 +1,10 @@
 import React from "react";
-import { TextField, Button} from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import authService from "../services/auth.service";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const initialValues = {
