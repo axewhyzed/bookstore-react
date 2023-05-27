@@ -122,8 +122,8 @@ const Register = () => {
                 fullWidth
                 margin="dense"
               >
-                <MenuItem value={1}>Seller</MenuItem>
-                <MenuItem value={2}>Buyer</MenuItem>
+                <MenuItem value={2}>Seller</MenuItem>
+                <MenuItem value={3}>Buyer</MenuItem>
               </Field>
             </div>
             <ErrorMessage name="roleId" component="div" className="error" />

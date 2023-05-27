@@ -20,7 +20,13 @@ const Login = () => {
   const handleSubmit = (values, { setSubmitting }) => {
     console.log("Submitted:", values);
     authService.login(values).then((res) => {
-      toast.success("Successfully Logged In");
+      toast.success("Successfully Logged In")
+    }).catch((error) => {
+      if (error.response && error.response.status === 401) {
+        toast.error(error);
+      } else {
+        toast.error("An error occurred");
+      }
     });
 
     // Reset form submission state
