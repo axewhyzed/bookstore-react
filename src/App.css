@@ -1,15 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-body {
-  font-family: 'Poppins', sans-serif;
+.register-page {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  margin: 10px;
 }
 
-.Register {
+.register-advert{
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 20px;
-  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  width: 50%;
+  border-right: 1px solid black;
+  background-image: url("./assets/register-bg.jpg");
+  border-radius: 10px;
+}
+
+.register-advert ul{
+  background-color:white;
+  opacity: 0.9;
+  border-radius: 10px;
+}
+.register-advert ul li{
+  margin: 10px;
+  opacity: 1;
+}
+
+.register-form{
+  width: 40%;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.register-grouping{
+  display: flex;
+  align-items: center;
 }
 
 .heading {
@@ -21,20 +50,8 @@ body {
   width: fit-content;
 }
 
-
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-}
-
 .form-group {
-  margin-bottom: 20px;
+  margin: 10px;
   width: 100%;
 }
 
@@ -67,19 +84,41 @@ button[type="submit"]:hover {
   }
 }
 
+/*---- Login Page Styles ----*/
 .login-page {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 100vh;
 }
 
-.login-form {
-  width: 400px;
+.login-advert{
   padding: 20px;
+  width: 50%;
+  border-right: 1px solid black;
+  background-image: url("./assets/login-bg.jpg");
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.login-advert ul{
+  opacity: 0.9;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.login-advert ul li{
+  margin: 10px;
+}
+
+.login-form {
+  width: 300px;
+  padding: 30px;
   background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .login-form h1 {

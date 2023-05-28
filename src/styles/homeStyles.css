@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+header {
+  background-color: #fff;
+  padding: 10px;
+}
+
+.hero {
+  background-color: #eee;
+  padding: 40px;
+  text-align: center;
+}
+
+.slider {
+  /* Add styles for the moving slider or carousel */
+}
+
+.featured-books {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.book-item:hover {
+  transform: translateY(-5px);
+}
+
+.book-item img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.book-item h3 {
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.book-item p {
+  font-weight: 400;
+}
+
+.book-categories {
+  background-color: #eee;
+  padding: 20px;
+}
+
+.category-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.category-item {
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.special-offers {
+  background-color: #fff;
+  padding: 20px;
+}
+
+footer {
+  background-color: #eee;
+  padding: 10px;
+  text-align: center;
+}

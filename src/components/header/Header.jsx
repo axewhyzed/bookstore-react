@@ -7,28 +7,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, TextField, IconButton, Card, CardContent} from "@material-ui/core";
+import {
+  Typography,
+  TextField,
+  IconButton,
+  Card,
+  CardContent,
+} from "@material-ui/core";
+import new_logo from "../../assets/new_logo.svg";
 
 const useStyles = makeStyles((theme) => ({
-  searchContainer: {
-    display: "flex",
-    alignItems: "center",
-    marginRight: theme.spacing(2),
-  },
-  searchInput: {
-    color: "#fff",
-  },
-  resultContainer: {
-    position: "absolute",
-    top: "100%",
-    left: 0,
-    width: "100%",
-    maxHeight: "300px",
-    overflowY: "auto",
-    backgroundColor: "#fff",
-    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
-    zIndex: 999,
-    padding: theme.spacing(1),
+  resultsContainer: {
+    width: "70vh",
   },
   resultCard: {
     display: "flex",
@@ -79,17 +69,8 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="navbar">
-        <NavLink to={RoutePaths.Home} className="navbar-link">
-          Home
-        </NavLink>
-        <NavLink to={RoutePaths.Login} className="navbar-link">
-          Login
-        </NavLink>
-        <NavLink to={RoutePaths.Register} className="navbar-link">
-          Register
-        </NavLink>
-      </nav>
-      <div className={classes.searchContainer}>
+          <img src={new_logo} alt="new-logo" width="180px" />
+          <div className={classes.searchContainer}>
         <TextField
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
@@ -102,32 +83,47 @@ const Header = () => {
           <SearchIcon />
         </IconButton>
       </div>
+          <div className="link-bar">
+          <NavLink to={RoutePaths.Home} className="navbar-link">
+            Home
+          </NavLink>
+          <NavLink to={RoutePaths.Login} className="navbar-link">
+            Login
+          </NavLink>
+          <NavLink to={RoutePaths.Register} className="navbar-link">
+            Register
+          </NavLink>
+        </div>
+      </nav>
       {searchResults.length > 0 && (
         <div className={classes.resultsContainer}>
-        <Typography variant="h6">Search Results:</Typography>
-        <div className={classes.resultsList}>
-          {searchResults.map((result) => (
-            <Card key={result.id} className={classes.resultCard}>
-              <img
-                src={result.base64image}
-                alt="book-pic"
-                className={classes.resultImage}
-              />
-              <CardContent className={classes.resultDetails}>
-                <Typography variant="h6" className={classes.resultName}>
-                  {result.name}
-                </Typography>
-                <Typography variant="body2" className={classes.resultDescription}>
-                  {result.description}
-                </Typography>
-                <Typography variant="body2" className={classes.resultPrice}>
-                  Price: {result.price}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
+          <Typography variant="h6">Search Results:</Typography>
+          <div className={classes.resultsList}>
+            {searchResults.map((result) => (
+              <Card key={result.id} className={classes.resultCard}>
+                <img
+                  src={result.base64image}
+                  alt="book-pic"
+                  className={classes.resultImage}
+                />
+                <CardContent className={classes.resultDetails}>
+                  <Typography variant="h6" className={classes.resultName}>
+                    {result.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    className={classes.resultDescription}
+                  >
+                    {result.description}
+                  </Typography>
+                  <Typography variant="body2" className={classes.resultPrice}>
+                    Price: {result.price}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
       )}
     </header>
   );

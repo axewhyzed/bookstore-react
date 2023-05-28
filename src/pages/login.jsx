@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import authService from "../services/auth.service";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "react-toastify/dist/ReactToastify.css";
+import { NavLink } from "react-router-dom";
+import { RoutePaths } from "../utils/enum";
 
 const Login = () => {
   const initialValues = {
@@ -19,15 +21,18 @@ const Login = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log("Submitted:", values);
-    authService.login(values).then((res) => {
-      toast.success("Successfully Logged In")
-    }).catch((error) => {
-      if (error.response && error.response.status === 401) {
-        toast.error(error);
-      } else {
-        toast.error("An error occurred");
-      }
-    });
+    authService
+      .login(values)
+      .then((res) => {
+        toast.success("Successfully Logged In");
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          toast.error(error);
+        } else {
+          toast.error("An error occurred");
+        }
+      });
 
     // Reset form submission state
     setSubmitting(false);
@@ -35,6 +40,32 @@ const Login = () => {
 
   return (
     <div className="login-page">
+      <div className="login-advert">
+        <ul>
+          <h4>Welcome Back! Log in to Your Account</h4>
+          <h6>📚 Continue Your Reading Adventure 📚</h6>
+          <li>
+            🌟 Discover New Releases: Stay up-to-date with the latest book
+            releases and literary gems.
+          </li>
+          <li>
+            📖 Expand Your Horizons: Explore diverse genres, authors, and
+            captivating narratives.
+          </li>
+          <li>
+            🗂️ Personalize Your Library: Tailor your reading collection with
+            your favorite books and genres.
+          </li>
+          <li>
+            💬 Engage with Fellow Readers: Connect with a passionate community
+            of book lovers, share recommendations, and ignite discussions.
+          </li>
+          <li>
+            🎉 Exclusive Surprises: Unlock member-exclusive events, giveaways,
+            and exciting surprises.
+          </li>
+        </ul>
+      </div>
       <div className="login-form">
         <h1>Login</h1>
         <Formik
@@ -43,7 +74,7 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-            <div className="form-group">
+            <div className="register-form-group">
               <Field
                 as={TextField}
                 type="email"
@@ -76,6 +107,12 @@ const Login = () => {
             </Button>
           </Form>
         </Formik>
+        <br />
+        <p>
+          New to our bookstore? Start your reading journey by creating an
+          account!
+        </p>
+        <NavLink to={RoutePaths.Register}>Click here to Register</NavLink>
       </div>
     </div>
   );
