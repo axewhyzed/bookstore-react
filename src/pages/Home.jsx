@@ -140,15 +140,15 @@ const Home = () => {
         <h2 className="featured-books-heading">Featured Books</h2>
         <Grid container spacing={2}>
           {books.map((book, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card className="book-card">
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <Card className="book-item">
                 <img src={book.base64image} alt={book.name} className="image" />
                 <CardContent>
                   <Typography variant="h6" className="book-title">
                     {book.name}
                   </Typography>
                   <Typography variant="body2" className="book-category">
-                    {book.category}
+                    Category: {book.category}
                   </Typography>
                   <Typography variant="body2" className="book-description">
                     {book.description}

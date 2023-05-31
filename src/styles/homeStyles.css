@@ -1,122 +1,71 @@
-.book-list-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-}
-
-.book-list-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.image {
-  width: 180px;
-  height: auto;
-  max-height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.book-category {
-  color: #888;
-  margin-top: 8px;
-}
-
-.price {
-  margin-top: 16px;
-}
-
-.discounted-price {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-@media screen and (max-width: 768px) {
-  .book-list-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .image {
-    width: 150px;
-    height: 225px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .book-list-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .image {
-    width: 100px;
-    height: 150px;
-  }
-}
-
-.sort-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.dropdown-wrapper {
-  width: 200px;
+.featured-books{
+  width: 100%;
 }
 
 .book-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
+  justify-content: flex-start; /* Adjust the alignment of elements */
+  padding: 12px;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
 }
 
-.book-details {
-  text-align: center;
-  margin-top: 12px;
+.book-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image {
+  width: 100%;
+  height: 200px; /* Adjust the desired height for the images */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px; /* Reduce the margin between the image and text */
 }
 
 .book-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 12px; /* Increase the margin between title and description */
+  margin-bottom: 4px;
+  text-align: center;
 }
 
 .book-category {
   color: #888;
-  font-size: 0.9rem;
-  margin-bottom: 8px;
+  padding-top: 5px;
+  text-align: center;
 }
 
 .book-description {
   font-size: 0.9rem;
-  margin-bottom: 12px; /* Increase the margin between description and price */
-  max-height: 80px;
+  padding-top: 5px;
+  max-height: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 .book-price {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  margin-bottom: 12px; /* Increase the margin between price and other elements */
+  padding-top: 20px;
+  text-align: center;
 }
 
-@media screen and (max-width: 600px) {
-  .book-item {
-    padding: 16px;
-    height: 350px;
-  }
+.sort-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* Add align-items to center the dropdown vertically */
+  margin-bottom: 20px;
+}
 
-  .image {
-    width: 150px;
-    max-height: 225px;
-    margin-bottom: 12px;
-  }
+.dropdown-wrapper {
+  width: 200px;
+  margin-left: auto; /* Add margin-left: auto to push the dropdown to the right */
 }
