@@ -5,10 +5,14 @@ import * as Yup from "yup";
 import authService from "../services/auth.service";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "react-toastify/dist/ReactToastify.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { RoutePaths } from "../utils/enum";
+import { useAuthContext } from "../context/auth.context";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const authContext = useAuthContext();
+
   const initialValues = {
     email: "",
     password: "",
@@ -24,6 +28,7 @@ const Login = () => {
     authService
       .login(values)
       .then((res) => {
+        authContext.setUser(res);
         toast.success("Successfully Logged In");
       })
       .catch((error) => {

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./headerStyles.css";
 import { RoutePaths } from "../../utils/enum";
 import bookService from "../../services/book.service";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -53,37 +52,45 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearch = async () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(null);
+  
+  const searchBooks = async (query) => {
     try {
-      const result = await bookService.searchBook(searchText);
-      console.log("Submitted:", result);
-      setSearchResults(result);
+      const result = await bookService.searchBook(query);
+      setSearchResults(result.slice(0,5));
     } catch (error) {
-      console.log(error);
-      // Handle any errors that occur during the search
+      setError(error);
     }
   };
+
+  useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      searchBooks(searchQuery);
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchQuery]);
+
   return (
     <header className="header">
       <nav className="navbar">
-          <img src={new_logo} alt="new-logo" width="180px" />
-          <div className={classes.searchContainer}>
-        <TextField
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search Books"
-          InputProps={{
-            className: classes.searchInput,
-          }}
-        />
-        <IconButton color="inherit" onClick={handleSearch}>
-          <SearchIcon />
-        </IconButton>
-      </div>
-          <div className="link-bar">
+        <img src={new_logo} alt="new-logo" width="180px" />
+        <div className={classes.searchContainer}>
+          <TextField
+            placeholder="Search Books"
+            InputProps={{
+              className: classes.searchInput,
+            }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <IconButton color="inherit">
+            <SearchIcon />
+          </IconButton>
+        </div>
+        <div className="link-bar">
           <NavLink to={RoutePaths.Home} className="navbar-link">
             Home
           </NavLink>
