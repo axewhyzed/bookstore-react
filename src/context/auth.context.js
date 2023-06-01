@@ -43,29 +43,30 @@ export const AuthWrapper = ({ children }) => {
     const str =
       JSON.parse(localStorage.getItem(shared.LocalStorageKeys.USER)) ||
       initialUserValue;
-    if (str.id) {
+    if(str.id) {
       _setUser(str);
     }
-    if (!str.id) {
+    if(!str.id) {
       navigate(RoutePaths.Login);
     }
   }, []);
 
   useEffect(() => {
-    if (pathname === RoutePaths.Login && user.id) {
+    if(pathname === RoutePaths.Login && user.id) {
       navigate(RoutePaths.Home);
     }
 
-    if (!user.id) {
+    if(!user.id) {
       return;
     }
 
     const access = shared.hasAccess(pathname, user);
-    if (!access) {
+    if(!access) {
       toast.warning("Sorry, you are not authorized to access this page");
       navigate(RoutePaths.Home);
       return;
     }
+    // eslint-disable-next-line import/no-anonymous-default-export
   }, [pathname, user]);
 
   const value = {

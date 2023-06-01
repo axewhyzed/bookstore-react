@@ -25,11 +25,9 @@ const Login = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log("Submitted:", values);
-    authService
-      .login(values)
-      .then((res) => {
-        authContext.setUser(res);
-        toast.success("Successfully Logged In");
+    authService.login(values).then((res) => {
+          toast.success("Successfully Logged In");
+          authContext.setUser(res);
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
