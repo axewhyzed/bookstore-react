@@ -23,10 +23,33 @@ const getById = async (id) => {
   });
 }
 
+const deleteBook = async (id) => {
+  const url = `${ENDPOINT}?id=${id}`;
+  return request.delete(url).then((res) => {
+    return res;
+  });
+};
+
+const save = async (data) => {
+  if (data.id) {
+    const url = `${ENDPOINT}`;
+    return request.put(url, data).then((res) => {
+      return res;
+    });
+  } else {
+    const url = `${ENDPOINT}`;
+    return request.post(url, data).then((res) => {
+      return res;
+    });
+  }
+};
+
 const bookService = {
   searchBook,
   getAll,
   getById,
+  deleteBook,
+  save,
 };
 
 export default bookService;

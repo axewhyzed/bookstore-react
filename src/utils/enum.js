@@ -1,5 +1,4 @@
 export const RoutePaths = {
-  Home: "/",
   Login: "/login",
   Register: "/register",
   User: "/user",
@@ -10,12 +9,13 @@ export const RoutePaths = {
   Book: "/book",
   EditBook: "/edit-book/:id",
   AddBook: "/add-book",
+  Home: "/",
   Cart: "/Cart",
   UpdateProfile: "/update-profile",
 };
 
 export const Role = {
-  // Admin: 1,
+  Admin: 1,
   Seller: 2,
   Buyer: 3,
 };

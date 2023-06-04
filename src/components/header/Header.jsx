@@ -1,137 +1,168 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "./headerStyles.css";
 import { RoutePaths } from "../../utils/enum";
 import bookService from "../../services/book.service";
 import "react-toastify/dist/ReactToastify.css";
 import SearchIcon from "@material-ui/icons/Search";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  TextField,
-  IconButton,
-  Card,
-  CardContent,
-} from "@material-ui/core";
+import { TextField, List, AppBar, ListItem, Button } from "@material-ui/core";
 import new_logo from "../../assets/new_logo.svg";
-
-const useStyles = makeStyles((theme) => ({
-  resultsContainer: {
-    width: "70vh",
-  },
-  resultCard: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: theme.spacing(1),
-    padding: theme.spacing(1),
-  },
-  resultImage: {
-    width: 60,
-    height: 90,
-    objectFit: "cover",
-    borderRadius: theme.spacing(1),
-    marginRight: theme.spacing(2),
-  },
-  resultDetails: {
-    flex: 1,
-    marginLeft: theme.spacing(2),
-  },
-  resultName: {
-    fontWeight: "bold",
-    fontSize: 14,
-  },
-  resultDescription: {
-    fontSize: 12,
-    color: theme.palette.text.secondary,
-  },
-  resultPrice: {
-    fontSize: 12,
-    color: theme.palette.text.secondary,
-  },
-}));
+import shared from "../../utils/shared";
+import { useAuthContext } from "../../context/auth.context";
 
 const Header = () => {
-  const classes = useStyles();
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [error, setError] = useState(null);
-  
-  const searchBooks = async (query) => {
-    try {
-      const result = await bookService.searchBook(query);
-      setSearchResults(result.slice(0,5));
-    } catch (error) {
-      setError(error);
-    }
+  const open = false;
+  const authContext = useAuthContext();
+  // const classes = headerStyle();
+  const [query, setquery] = useState("");
+  const [bookList, setbookList] = useState([]);
+  const [openSearchResult, setOpenSearchResult] = useState(false);
+
+  const items = useMemo(() => {
+    return shared.NavigationItems;
+  }, []);
+
+  const openMenu = () => {
+    document.body.classList.toggle("open-menu");
   };
 
-  useEffect(() => {
-    if (searchQuery.trim() !== "") {
-      searchBooks(searchQuery);
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery]);
+  const searchBook = async () => {
+    const res = await bookService.searchBook(query);
+    setbookList(res);
+  };
+
+  const search = () => {
+    document.body.classList.add("search-results-open");
+    searchBook();
+    setOpenSearchResult(true);
+  };
 
   return (
-    <header className="header">
-      <nav className="navbar">
-        <img src={new_logo} alt="new-logo" width="180px" />
-        <div className={classes.searchContainer}>
-          <TextField
-            placeholder="Search Books"
-            InputProps={{
-              className: classes.searchInput,
-            }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <IconButton color="inherit">
-            <SearchIcon />
-          </IconButton>
-        </div>
-        <div className="link-bar">
-          <NavLink to={RoutePaths.Home} className="navbar-link">
-            Home
-          </NavLink>
-          <NavLink to={RoutePaths.Login} className="navbar-link">
-            Login
-          </NavLink>
-          <NavLink to={RoutePaths.Register} className="navbar-link">
-            Register
-          </NavLink>
-        </div>
-      </nav>
-      {searchResults.length > 0 && (
-        <div className={classes.resultsContainer}>
-          <Typography variant="h6">Search Results:</Typography>
-          <div className={classes.resultsList}>
-            {searchResults.map((result) => (
-              <Card key={result.id} className={classes.resultCard}>
-                <img
-                  src={result.base64image}
-                  alt="book-pic"
-                  className={classes.resultImage}
-                />
-                <CardContent className={classes.resultDetails}>
-                  <Typography variant="h6" className={classes.resultName}>
-                    {result.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    className={classes.resultDescription}
-                  >
-                    {result.description}
-                  </Typography>
-                  <Typography variant="body2" className={classes.resultPrice}>
-                    Price: {result.price}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
+    <header className="header-wrapper">
+      <AppBar className="site-header" id="header" position="static">
+        <div className="bottom-header">
+          <div className="container">
+            <div className="logo-wrapper">
+              <List
+                className="top-nav-bar"
+                style={{
+                  display: "flex",
+                }}
+              >
+                <ListItem>
+                  <Link to="/" className="site-logo" title="logo">
+                    <img src={new_logo} alt="logo" width="180px" />
+                  </Link>
+                </ListItem>
+                {!authContext.user.id && (
+                  <>
+                    <ListItem>
+                      <NavLink to={RoutePaths.Login} title="Login">
+                        Login
+                      </NavLink>
+                    </ListItem>
+                    <ListItem>
+                      <Link to={RoutePaths.Register} title="Register">
+                        Register
+                      </Link>
+                    </ListItem>
+                  </>
+                )}
+                {authContext.user.id && (
+                  <>
+                    {items.map((item, index) => (
+                      <ListItem key={index}>
+                        <Link to={item.route} title={item.name}>
+                          {item.name}
+                        </Link>
+                      </ListItem>
+                    ))}
+
+                    <ListItem>
+                      <Button title="Logout" onClick={authContext.signOut}>
+                        Logout
+                      </Button>
+                    </ListItem>
+                  </>
+                )}
+              </List>
+              <List className="cart-country-wrap">
+                <ListItem className="hamburger" onClick={openMenu}>
+                  <span></span>
+                </ListItem>
+              </List>
+            </div>
           </div>
         </div>
-      )}
+        <div
+          className="search-overlay"
+          onClick={() => {
+            setOpenSearchResult(false);
+            document.body.classList.remove("search-results-open");
+          }}
+        ></div>
+        <div className="header-search-wrapper">
+          <div className="container">
+            <div
+              className="header-search-outer"
+              style={{ alignItems: "center", justifyContent: "space-around" }}
+            >
+              <div className="text-wrapper">
+                <TextField
+                  id="text"
+                  name="text"
+                  placeholder="What are you looking for..."
+                  variant="outlined"
+                  value={query}
+                  onChange={(e) => setquery(e.target.value)}
+                />
+
+                {openSearchResult && (
+                  <>
+                    <div className="product-listing">
+                      {bookList?.length === 0 && (
+                        <p className="no-product">No product found</p>
+                      )}
+                      <List className="related-product-list">
+                        {bookList?.length > 0 &&
+                          bookList.map((item, i) => {
+                            return (
+                              <ListItem key={i}>
+                                <div className="inner-block">
+                                  <div className="left-col">
+                                    <span className="title">{item.name}</span>
+                                    <p>{item.description}</p>
+                                  </div>
+                                  <div className="right-col">
+                                    <span className="price">{item.price}</span>
+                                    <Link onClick={() => {}}>Add to cart</Link>
+                                  </div>
+                                </div>
+                              </ListItem>
+                            );
+                          })}
+                      </List>
+                    </div>
+                  </>
+                )}
+              </div>
+              <Button
+                type="submit"
+                className="green-btn btn"
+                variant="contained"
+                color="primary"
+                disableElevation
+                onClick={search}
+              >
+                <em>
+                  <SearchIcon />
+                </em>
+                Search
+              </Button>
+            </div>
+          </div>
+        </div>
+      </AppBar>
     </header>
   );
 };

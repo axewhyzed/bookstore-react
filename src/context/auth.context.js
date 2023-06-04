@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import shared from "../utils/shared.js";
-import { useLocation, useNavigate } from "react-router-dom";
-import { RoutePaths } from "../utils/enum.js";
+import { createContext, useContext, useEffect, useState } from "react";
+import React from "react";
+import shared from "../utils/shared";
+import { RoutePaths } from "../utils/enum";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const initialUserValue = {
+const intialUserValue = {
   id: 0,
   email: "",
   firstName: "",
@@ -16,67 +17,71 @@ const initialUserValue = {
 
 const initialState = {
   setUser: () => {},
-  user: initialUserValue,
+  user: intialUserValue,
   signOut: () => {},
+  appInitialize: false,
 };
 
-const authContext = createContext(initialState);
+export const AuthContext = createContext(initialState);
 
 export const AuthWrapper = ({ children }) => {
-  const [user, _setUser] = useState(initialUserValue);
+  const [appInitialize, setAppInitialize] = useState(false);
+  const [user, _setUser] = useState(intialUserValue);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const setUser = (user) => {
-      localStorage.setItem(shared.LocalStorageKeys.USER, JSON.stringify(user));
-      _setUser(user);
-  };
-
-  const signOut = () => {
-    localStorage.removeItem(shared.LocalStorageKeys.USER);
-    _setUser(initialUserValue);
-    navigate(RoutePaths.Login);
+    localStorage.setItem(shared.LocalStorageKeys.USER, JSON.stringify(user));
+    _setUser(user);
   };
 
   useEffect(() => {
-    const str =
+    const itemStr =
       JSON.parse(localStorage.getItem(shared.LocalStorageKeys.USER)) ||
-      initialUserValue;
-    if(str.id) {
-      _setUser(str);
+      intialUserValue;
+    // if the item doesn't exist, return null
+    if (!itemStr.id) {
+      navigate(`${RoutePaths.Login}`);
     }
-    if(!str.id) {
-      navigate(RoutePaths.Login);
-    }
+    _setUser(itemStr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const signOut = () => {
+    setUser(intialUserValue);
+    localStorage.removeItem(shared.LocalStorageKeys.USER);
+    navigate(`${RoutePaths.Login}`);
+  };
+
   useEffect(() => {
-    if(pathname === RoutePaths.Login && user.id) {
+    if (pathname === RoutePaths.Login && user.id) {
       navigate(RoutePaths.Home);
     }
 
-    if(!user.id) {
+    if (!user.id) {
       return;
     }
-
     const access = shared.hasAccess(pathname, user);
-    if(!access) {
+    if (!access) {
       toast.warning("Sorry, you are not authorized to access this page");
       navigate(RoutePaths.Home);
       return;
     }
-    // eslint-disable-next-line import/no-anonymous-default-export
+    setAppInitialize(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, user]);
 
-  const value = {
+  let value = {
     user,
     setUser,
     signOut,
+    appInitialize,
   };
-  return <authContext.Provider value={value}>{children}</authContext.Provider>;
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => {
-  return useContext(authContext);
+  return useContext(AuthContext);
 };
