@@ -67,7 +67,7 @@ const UpdateProfile = () => {
   return (
     <div className={classes.editWrapper}>
       <div className="container">
-        <Typography variant="h1">Update Profile</Typography>
+        <center><Typography variant="h3">Update Profile</Typography></center>
         <Formik
           initialValues={initialValueState}
           validationSchema={validationSchema}

@@ -59,7 +59,7 @@ const Category = () => {
   return (
     <div className={classes.productWrapper}>
       <div className="container">
-        <Typography variant="h1">Category</Typography>
+        <center><Typography variant="h3">Category</Typography></center>
         <div className="btn-wrapper">
           <TextField
             id="text"

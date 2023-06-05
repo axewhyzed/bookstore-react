@@ -80,7 +80,7 @@ const User = () => {
   return (
     <div className={classes.productWrapper}>
       <div className="container">
-        <Typography variant="h1">User</Typography>
+        <center><Typography variant="h3">User</Typography></center>
         <div className="btn-wrapper">
           <TextField
             id="text"

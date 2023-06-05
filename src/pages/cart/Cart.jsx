@@ -111,9 +111,9 @@ const Cart = () => {
   return (
     <div className='cart-wrapper'>
       <div className="container">
-        <Typography variant="h1">Cart page</Typography>
+        <center><Typography variant="h3">Cart page</Typography></center>
         <div className="cart-heading-block">
-          <Typography variant="h2">
+          <Typography variant="h6">
             My Shopping Bag ({ItemsInCart} Items)
           </Typography>
           <div className="total-price">Total price: {TotalPrice}</div>

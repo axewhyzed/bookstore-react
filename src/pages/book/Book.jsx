@@ -79,7 +79,7 @@ const Book = () => {
   return (
     <div className={classes.productWrapper}>
       <div className="container">
-        <Typography variant="h1">Book Page</Typography>
+        <center><Typography variant="h3">Book Page</Typography></center>
         <div className="btn-wrapper">
           <TextField
             id="text"
