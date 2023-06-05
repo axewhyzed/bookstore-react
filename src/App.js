@@ -12,6 +12,7 @@ import EditBook from "./pages/book/editBook/EditBook";
 import { useAuthContext } from "./context/auth.context";
 import Book from "./pages/book/Book";
 import UpdateProfile from "./pages/update-profile/UpdateProfile";
+import Cart from "./pages/cart/Cart";
 
 const App = () => {
   const authContext = useAuthContext();
@@ -68,6 +69,12 @@ const App = () => {
           exact
           path={RoutePaths.UpdateProfile}
           element={authContext.user.id ? <UpdateProfile /> : Redirect}
+        />
+
+        <Route
+          exact
+          path={RoutePaths.Cart}
+          element={authContext.user.id ? <Cart /> : Redirect}
         />
       </Routes>
     </>

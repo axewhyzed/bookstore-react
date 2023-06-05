@@ -4,7 +4,6 @@ import "./headerStyles.css";
 import { RoutePaths } from "../../utils/enum";
 import bookService from "../../services/book.service";
 import "react-toastify/dist/ReactToastify.css";
-import SearchIcon from "@material-ui/icons/Search";
 import { TextField, List, AppBar, ListItem, Button } from "@material-ui/core";
 import new_logo from "../../assets/new_logo.svg";
 import shared from "../../utils/shared";
@@ -39,7 +38,12 @@ const Header = () => {
 
   return (
     <header className="header-wrapper">
-      <AppBar className="site-header" id="header" position="static">
+      <AppBar
+        className="site-header"
+        id="header"
+        position="static"
+        style={{ backgroundColor: "white" }}
+      >
         <div className="bottom-header">
           <div className="container">
             <div className="logo-wrapper">
@@ -51,7 +55,7 @@ const Header = () => {
               >
                 <ListItem>
                   <Link to="/" className="site-logo" title="logo">
-                    <img src={new_logo} alt="logo" width="180px" />
+                    <img src={new_logo} alt="ReadWrite-logo" width="180px" />
                   </Link>
                 </ListItem>
                 {!authContext.user.id && (
@@ -69,21 +73,39 @@ const Header = () => {
                   </>
                 )}
                 {authContext.user.id && (
-                  <>
+                  <div className="header-components-wrapper">
                     {items.map((item, index) => (
                       <ListItem key={index}>
-                        <Link to={item.route} title={item.name}>
-                          {item.name}
-                        </Link>
+                        <Button>
+                          <Link
+                            to={item.route}
+                            title={item.name}
+                            style={{ textDecoration: "none", color: "black" }}
+                          >
+                            {item.name}
+                          </Link>
+                        </Button>
                       </ListItem>
                     ))}
+
+                    <ListItem>
+                      <Button>
+                        <Link
+                          to="/cart"
+                          title="Cart"
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          Cart
+                        </Link>
+                      </Button>
+                    </ListItem>
 
                     <ListItem>
                       <Button title="Logout" onClick={authContext.signOut}>
                         Logout
                       </Button>
                     </ListItem>
-                  </>
+                  </div>
                 )}
               </List>
               <List className="cart-country-wrap">
@@ -101,12 +123,12 @@ const Header = () => {
             document.body.classList.remove("search-results-open");
           }}
         ></div>
-        <div className="header-search-wrapper">
+        <div
+          className="header-search-wrapper"
+          style={{ alignItems: "center", justifyContent: "space-around" }}
+        >
           <div className="container">
-            <div
-              className="header-search-outer"
-              style={{ alignItems: "center", justifyContent: "space-around" }}
-            >
+            <div className="header-search">
               <div className="text-wrapper">
                 <TextField
                   id="text"
@@ -114,6 +136,7 @@ const Header = () => {
                   placeholder="What are you looking for..."
                   variant="outlined"
                   value={query}
+                  style={{ alignItems: "center", justifyContent: "center" }}
                   onChange={(e) => setquery(e.target.value)}
                 />
 
@@ -127,15 +150,35 @@ const Header = () => {
                         {bookList?.length > 0 &&
                           bookList.map((item, i) => {
                             return (
-                              <ListItem key={i}>
-                                <div className="inner-block">
+                              <ListItem key={i} style={{ color: "black" }}>
+                                <div
+                                  className="inner-block"
+                                  style={{ display: "flex" }}
+                                >
                                   <div className="left-col">
                                     <span className="title">{item.name}</span>
-                                    <p>{item.description}</p>
+                                    <p
+                                      style={{
+                                        width: "400px",
+                                        overflow: "hidden",
+                                      }}
+                                    >
+                                      {item.description}
+                                    </p>
                                   </div>
                                   <div className="right-col">
                                     <span className="price">{item.price}</span>
-                                    <Link onClick={() => {}}>Add to cart</Link>
+                                    <Button>
+                                      <Link
+                                        onClick={() => {}}
+                                        style={{
+                                          textDecoration: "none",
+                                          color: "green",
+                                        }}
+                                      >
+                                        Add to cart
+                                      </Link>
+                                    </Button>
                                   </div>
                                 </div>
                               </ListItem>
@@ -148,15 +191,11 @@ const Header = () => {
               </div>
               <Button
                 type="submit"
-                className="green-btn btn"
                 variant="contained"
                 color="primary"
                 disableElevation
                 onClick={search}
               >
-                <em>
-                  <SearchIcon />
-                </em>
                 Search
               </Button>
             </div>

@@ -1,21 +1,9 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
-    padding: 10px;
-  }
-  
-  .navbar-link:hover {
-    color: #000;
-  }
-  
-  .header {
-    padding: 2px;
-  }
-  
-  .navbar-link {
-    margin: 0 20px;
-    text-decoration: none;
-    color: #3e7642;
-    font-weight: bold;
-  }
+.header-components-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.text-wrapper{
+  align-items: center;
+  justify-content: center;
+}
