@@ -167,7 +167,7 @@ const Header = () => {
                                     </p>
                                   </div>
                                   <div className="right-col">
-                                    <span className="price">{item.price}</span>
+                                    <span className="price">Rs. {item.price}</span>
                                     <Button>
                                       <Link
                                         onClick={() => {}}
