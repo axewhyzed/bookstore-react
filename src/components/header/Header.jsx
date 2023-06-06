@@ -1,24 +1,52 @@
-import React, { useMemo, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useMemo, useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./headerStyles.css";
 import { RoutePaths } from "../../utils/enum";
 import bookService from "../../services/book.service";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { TextField, List, AppBar, ListItem, Button } from "@material-ui/core";
 import new_logo from "../../assets/new_logo.svg";
 import shared from "../../utils/shared";
 import { useAuthContext } from "../../context/auth.context";
+import { useCartContext } from "../../context/cart.context";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const open = false;
   const authContext = useAuthContext();
-  // const classes = headerStyle();
+  const cartContext = useCartContext();
+  const navigate = useNavigate();
+
+  const searchOverlayRef = useRef(null);
+  const searchContainerRef = useRef(null);
+
   const [query, setquery] = useState("");
   const [bookList, setbookList] = useState([]);
   const [openSearchResult, setOpenSearchResult] = useState(false);
 
   const items = useMemo(() => {
-    return shared.NavigationItems;
+    return shared.NavigationItems.filter((item) =>
+    shared.hasAccess(item.route, authContext.user));
+  }, [authContext.user]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchOverlayRef.current &&
+        !searchOverlayRef.current.contains(event.target) &&
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target)
+      ) {
+        setOpenSearchResult(false);
+        document.body.classList.remove("search-results-open");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const openMenu = () => {
@@ -27,13 +55,30 @@ const Header = () => {
 
   const searchBook = async () => {
     const res = await bookService.searchBook(query);
-    setbookList(res);
+    setbookList(res.slice(0, 5));
   };
 
   const search = () => {
     document.body.classList.add("search-results-open");
     searchBook();
     setOpenSearchResult(true);
+  };
+
+  const addToCart = (book) => {
+    if (!authContext.user.id) {
+      navigate(RoutePaths.Login);
+      toast.error("Please login before adding books to cart");
+      return;
+    } else {
+      shared.addToCart(book, authContext.user.id).then((res) => {
+        if (res.error) {
+          toast.error(res.error);
+        } else {
+          toast.success("Item added in cart");
+          cartContext.updateCart();
+        }
+      });
+    }
   };
 
   return (
@@ -59,21 +104,42 @@ const Header = () => {
                   </Link>
                 </ListItem>
                 {!authContext.user.id && (
-                  <>
+                  <div className="login-register-buttons">
                     <ListItem>
-                      <NavLink to={RoutePaths.Login} title="Login">
-                        Login
-                      </NavLink>
+                      <Button>
+                        <Link
+                          to={RoutePaths.Login}
+                          title="Login"
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          Login
+                        </Link>
+                      </Button>
                     </ListItem>
                     <ListItem>
-                      <Link to={RoutePaths.Register} title="Register">
-                        Register
-                      </Link>
+                      <Button>
+                        <Link
+                          to={RoutePaths.Register}
+                          title="Register"
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          Register
+                        </Link>
+                      </Button>
                     </ListItem>
-                  </>
+                  </div>
                 )}
                 {authContext.user.id && (
                   <div className="header-components-wrapper">
+                    <ListItem>
+                      <Button>
+                        <Link
+                          to={RoutePaths.Home}
+                          title="Home"
+                          style={{ textDecoration: "none", color: "black" }}
+                        >Home</Link>
+                      </Button>
+                    </ListItem>
                     {items.map((item, index) => (
                       <ListItem key={index}>
                         <Button>
@@ -96,6 +162,11 @@ const Header = () => {
                           style={{ textDecoration: "none", color: "black" }}
                         >
                           Cart
+                          {cartContext.cartData.length > 0 && (
+                            <sup className="cart-counter">
+                              <span>{cartContext.cartData.length}</span>
+                            </sup>
+                          )}
                         </Link>
                       </Button>
                     </ListItem>
@@ -117,6 +188,7 @@ const Header = () => {
           </div>
         </div>
         <div
+          ref={searchOverlayRef}
           className="search-overlay"
           onClick={() => {
             setOpenSearchResult(false);
@@ -124,6 +196,7 @@ const Header = () => {
           }}
         ></div>
         <div
+          ref={searchContainerRef}
           className="header-search-wrapper"
           style={{ alignItems: "center", justifyContent: "space-around" }}
         >
@@ -139,6 +212,16 @@ const Header = () => {
                   style={{ alignItems: "center", justifyContent: "center" }}
                   onChange={(e) => setquery(e.target.value)}
                 />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  onClick={search}
+                >
+                  Search
+                </Button>
 
                 {openSearchResult && (
                   <>
@@ -156,10 +239,13 @@ const Header = () => {
                                   style={{ display: "flex" }}
                                 >
                                   <div className="left-col">
-                                    <span className="title">{item.name}</span>
+                                    <b>
+                                      <span className="title">{item.name}</span>
+                                    </b>
                                     <p
                                       style={{
                                         width: "400px",
+                                        height: "40px",
                                         overflow: "hidden",
                                       }}
                                     >
@@ -167,10 +253,12 @@ const Header = () => {
                                     </p>
                                   </div>
                                   <div className="right-col">
-                                    <span className="price">Rs. {item.price}</span>
+                                    <span className="price">
+                                      Rs. {item.price}
+                                    </span>
                                     <Button>
                                       <Link
-                                        onClick={() => {}}
+                                        onClick={() => addToCart(item)}
                                         style={{
                                           textDecoration: "none",
                                           color: "green",
@@ -189,15 +277,6 @@ const Header = () => {
                   </>
                 )}
               </div>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disableElevation
-                onClick={search}
-              >
-                Search
-              </Button>
             </div>
           </div>
         </div>

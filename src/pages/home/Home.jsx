@@ -14,10 +14,16 @@ import { materialCommonStyles } from "../../utils/materialCommonStyles";
 import { defaultFilter } from "../../constant/constant";
 import categoryService from "../../services/category.service";
 import bookService from "../../services/book.service";
+import { useCartContext } from "../../context/cart.context";
+import { useAuthContext } from "../../context/auth.context";
+import shared from "../../utils/shared";
+import { toast } from "react-toastify";
 
 const Home = () => {
   // const cartContext = useCartContext();
   const classes = productListingStyle();
+  const authContext = useAuthContext();
+  const cartContext = useCartContext();
   const materialClasses = materialCommonStyles();
   const [bookResponse, setBookResponse] = useState({
     pageIndex: 0,
@@ -69,16 +75,16 @@ const Home = () => {
     return [];
   }, [categories, bookResponse]);
 
-  //   const addToCart = (book) => {
-  //     Shared.addToCart(book, authContext.user.id).then((res) => {
-  //       if (res.error) {
-  //         toast.error(res.message);
-  //       } else {
-  //         toast.success(res.message);
-  //         cartContext.updateCart();
-  //       }
-  //     });
-  //   };
+    const addToCart = (book) => {
+      shared.addToCart(book, authContext.user.id).then((res) => {
+        if (res.error) {
+          toast.error(res.message);
+        } else {
+          toast.success(res.message);
+          cartContext.updateCart();
+        }
+      });
+    };
 
   const sortBooks = (e) => {
     setSortBy(e.target.value);
@@ -99,10 +105,11 @@ const Home = () => {
   return (
     <div className={classes.productListWrapper}>
       <div className="container">
-        <Typography variant="h1">Book Listing</Typography>
+        <Typography variant="h3">Book Listing</Typography>
+        <br />
         <Grid container className="title-wrapper">
           <Grid item xs={6}>
-            <Typography variant="h2">
+            <Typography variant="h5">
               Total
               <span> - {bookResponse.totalItems} items</span>
             </Typography>
@@ -128,6 +135,7 @@ const Home = () => {
             <InputLabel htmlFor="select">Sort By</InputLabel>
             <Select
               className={materialClasses.customSelect}
+              style={{height:"50px"}}
               MenuProps={{
                 classes: { paper: materialClasses.customSelect },
               }}
@@ -161,7 +169,7 @@ const Home = () => {
                       </span>
                     </p>
                     <button className="MuiButtonBase-root MuiButton-root MuiButton-contained btn pink-btn MuiButton-containedPrimary MuiButton-disableElevation">
-                      <span className="MuiButton-label" onClick={() => {}}>
+                      <span className="MuiButton-label" onClick={() => addToCart(book)}>
                         ADD TO CART
                       </span>
                       <span className="MuiTouchRipple-root"></span>

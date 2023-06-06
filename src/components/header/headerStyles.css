@@ -7,3 +7,87 @@
   align-items: center;
   justify-content: center;
 }
+
+.login-register-buttons{
+  display: flex;
+}
+
+.header-search-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-search-wrapper .header-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-search-wrapper .MuiTextField-root {
+  width: 500px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.header-search-wrapper .MuiButton-root {
+  width: auto;
+}
+
+.cart-counter {
+  position: relative;
+}
+
+.cart-counter span {
+  display: inline-block;
+  background-color: red;
+  color: white;
+  border-radius: 10%;
+  padding: 2px 5px;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  transform: translate(50%, -50%);
+}
+
+.container {
+  max-width: 1000px; /* Adjust the maximum width as needed */
+  margin: 0 auto;
+  position: relative;
+}
+
+.header-search-wrapper .container .header-search {
+  position: relative;
+}
+
+.header-search-wrapper .container .header-search .text-wrapper {
+  position: relative;
+}
+
+.header-search-wrapper .container .header-search .product-listing {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  /* width: 110vh; */
+  z-index: 10;
+  max-height: 300px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.header-search-wrapper .container .header-search .product-listing .related-product-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-search-wrapper .container .header-search .product-listing .related-product-list li {
+  color: black;
+}
+
+
+

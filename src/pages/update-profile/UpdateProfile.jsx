@@ -68,6 +68,7 @@ const UpdateProfile = () => {
     <div className={classes.editWrapper}>
       <div className="container">
         <center><Typography variant="h3">Update Profile</Typography></center>
+        <br />
         <Formik
           initialValues={initialValueState}
           validationSchema={validationSchema}
@@ -118,6 +119,8 @@ const UpdateProfile = () => {
                       touched={touched.lastName}
                     />
                   </div>
+                  </div>
+                  <div className="form-row-wrapper">
                   <div className="form-col">
                     <TextField
                       id="email"
@@ -134,6 +137,8 @@ const UpdateProfile = () => {
                       touched={touched.email}
                     />
                   </div>
+                  </div>
+                  <div className="form-row-wrapper">
                   <div className="form-col">
                     <TextField
                       id="newPassword"

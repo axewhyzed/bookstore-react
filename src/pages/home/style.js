@@ -10,10 +10,17 @@ const productListingStyle = makeStyles((theme) => ({
     "@media (max-width: 767px)": {
       padding: "35px 0 40px",
     },
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center", // Center content horizontally
+    textAlign: "center",
+    
     "& .title-wrapper": {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      width: "100%",
+      marginBottom: "20px",
       "@media (max-width: 574px)": {
         flexWrap: "wrap",
         justifyContent: "center",
@@ -29,7 +36,7 @@ const productListingStyle = makeStyles((theme) => ({
         },
       },
       "& .MuiFormControl-root": {
-        maxWidth: "270px",
+        // maxWidth: "270px",
         flex: "0 0 270px",
         marginLeft: "auto",
         display: "flex",
@@ -53,18 +60,20 @@ const productListingStyle = makeStyles((theme) => ({
       },
     },
     "& .product-list-wrapper": {
+      width: "100%",
       marginTop: "30px",
       "& .product-list-inner-wrapper": {
         display: "flex",
         flexWrap: "wrap",
+        justifyContent: "center",
         margin: "0 -15px -30px",
         "@media (max-width: 1199px)": {
           margin: "0 -10px -30px",
         },
         "& .product-list": {
-          maxWidth: "25%",
-          flex: "0 0 25%",
-          padding: "0 15px",
+          maxWidth: "20%",
+          flex: "0 0 20%",
+          padding: "0 10px",
           marginBottom: "30px",
           "@media (max-width: 1199px)": {
             padding: "0 10px",

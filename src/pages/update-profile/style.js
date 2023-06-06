@@ -11,6 +11,9 @@ const editStyle = makeStyles((theme) => ({
       padding: "35px 0 40px",
     },
     "& .btn-wrapper": {
+      marginTop: "30px",
+      display: "flex",
+      justifyContent: "flex-end",
       "& .btn": {
         height: "40px",
         lineHeight: "40px",
@@ -25,13 +28,10 @@ const editStyle = makeStyles((theme) => ({
     },
     "& .form-row-wrapper": {
       display: "flex",
-      flexWrap: "wrap",
-      margin: "0 -15px",
       "& .form-col": {
-        padding: " 0 15px",
         maxWidth: "50%",
-        flex: "0 0 50%",
         position: "relative",
+        marginBottom: "20px",
         "@media(max-width:767px)": {
           maxWidth: "100%",
           flex: "0 0 100%",
@@ -50,8 +50,8 @@ const editStyle = makeStyles((theme) => ({
           },
         },
       },
-      "& .MuiInputBase-formControl": {
-        marginBottom: "35px",
+      "& .MuiInputBase-root": {
+        width: "100%",
       },
     },
     "& .dropdown-wrapper": {

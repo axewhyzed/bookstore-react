@@ -7,6 +7,7 @@ import orderService from "../../services/order.service";
 import Shared from "../../utils/shared";
 import { useCartContext } from "../../context/cart.context";
 import { useNavigate } from "react-router-dom";
+import './cartStyles.css'
 
 const Cart = () => {
   const authContext = useAuthContext();
@@ -131,7 +132,7 @@ const Cart = () => {
                   <div className="cart-item-top-content">
                     <div className="cart-item-left">
                       <p className="brand">{cartItem.book.name}</p>
-                      <Link>Cart item name</Link>
+                      <p className="desc" style={{overflow:"hidden"}}>{cartItem.book.description}</p>
                     </div>
                     <div className="price-block">
                       <span className="current-price">
@@ -155,7 +156,7 @@ const Cart = () => {
                         -
                       </Button>
                     </div>
-                    <Link onClick={() => removeItem(cartItem.id)}>Remove</Link>
+                    <Button onClick={() => removeItem(cartItem.id)}>Remove</Button>
                   </div>
                 </div>
               </div>
