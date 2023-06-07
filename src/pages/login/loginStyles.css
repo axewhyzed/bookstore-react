@@ -26,6 +26,7 @@
     opacity: 0.9;
     background-color: white;
     border-radius: 10px;
+    padding: 10px;
   }
   
   .login-advert ul li{
@@ -74,3 +75,19 @@
   .auth-page li{
     list-style: none;
   }
+
+  /* Add media query for smaller screen sizes */
+@media (max-width: 600px) {
+  .login-advert {
+    display: none;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+
+  .login-form .MuiTextField-root,
+  .login-form .MuiButton-root {
+    width: 100%;
+  }
+}

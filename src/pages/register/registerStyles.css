@@ -2,16 +2,16 @@
 
 .register-page {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  height: 100%;
   margin: 20px;
 }
 
 .register-advert {
+  flex: 1 1 100%;
   display: flex;
   align-items: center;
   padding: 10px;
-  width: 50%;
   border-right: 1px solid black;
   background-image: url("../../assets/register-bg.jpg");
   border-radius: 10px;
@@ -23,13 +23,15 @@
   opacity: 0.9;
   border-radius: 10px;
 }
+
 .register-advert ul li {
   margin: 10px;
   opacity: 1;
 }
 
 .register-form {
-  width: 40%;
+  flex: 1 1 100%;
+  width: 100%;
   padding: 30px;
   background-color: #ffffff;
   border-radius: 30px;
@@ -48,6 +50,7 @@
 
 .form-col {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin: 5px;
   width: 100%;
@@ -55,6 +58,7 @@
 
 .form-col .dropdown-wrapper {
   width: 100%;
+  margin-top: 10px;
 }
 
 button[type="submit"] {
@@ -75,7 +79,11 @@ button[type="submit"]:hover {
 }
 
 @media (max-width: 768px) {
-  .form {
+  .register-form {
     width: 100%;
+  }
+
+  .register-advert{
+    display: none;
   }
 }

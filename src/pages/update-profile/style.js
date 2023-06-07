@@ -3,17 +3,21 @@ import { colors } from "../../constant/constant";
 
 const editStyle = makeStyles((theme) => ({
   editWrapper: {
-    padding: "42px 0 80px",
-    "@media (max-width: 991px)": {
-      padding: "35px 0 50px",
+    padding: theme.spacing(4, 0, 8),
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(3, 0, 5),
     },
-    "@media (max-width: 767px)": {
-      padding: "35px 0 40px",
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(3, 0, 4),
     },
-    "& .btn-wrapper": {
-      marginTop: "30px",
+    "& .btnWrapper": {
+      marginTop: theme.spacing(3),
       display: "flex",
-      justifyContent: "flex-end",
+      justifyContent: "space-between",
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        alignItems: "center",
+      },
       "& .btn": {
         height: "40px",
         lineHeight: "40px",
@@ -22,47 +26,69 @@ const editStyle = makeStyles((theme) => ({
         fontSize: "16px",
         minWidth: "100px",
         "&+.btn": {
-          marginLeft: "10px",
-        },
-      },
-    },
-    "& .form-row-wrapper": {
-      display: "flex",
-      "& .form-col": {
-        maxWidth: "50%",
-        position: "relative",
-        marginBottom: "20px",
-        "@media(max-width:767px)": {
-          maxWidth: "100%",
-          flex: "0 0 100%",
-        },
-        "&.full-width": {
-          maxWidth: "100%",
-          flex: "0 0 100%",
-        },
-        "& p": {
-          "&.text-danger": {
-            fontSize: "14px",
-            color: colors.primary,
-            position: "absolute",
-            top: "70%",
-            margin: "0",
+          marginTop: theme.spacing(2),
+          [theme.breakpoints.down("sm")]: {
+            marginTop: theme.spacing(1),
           },
         },
       },
-      "& .MuiInputBase-root": {
+    },
+    "& .formRowWrapper": {
+      display: "flex",
+      alignItems: "center",
+      marginBottom: theme.spacing(2),
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+      },
+      "& .formCol": {
+        flex: "1",
+        "&:not(:last-child)": {
+          marginRight: theme.spacing(2),
+          [theme.breakpoints.down("sm")]: {
+            marginRight: 0,
+            marginBottom: theme.spacing(2),
+          },
+        },
+        "&.fullWidth": {
+          flex: "2",
+        },
+        "& .MuiOutlinedInput-root": {
+          width: "100%",
+        },
+      },
+    },
+    "& .inputSmall": {
+      height: "40px",
+      lineHeight: "normal",
+      padding: "5px 12px",
+    },
+  },
+  greenBtn: {
+    backgroundColor: colors.green,
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: colors.darkGreen,
+    },
+  },
+  pinkBtn: {
+    backgroundColor: colors.pink,
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: colors.darkPink,
+    },
+  },
+  // Media Queries
+  [theme.breakpoints.down("sm")]: {
+    "& .formCol": {
+      "& .MuiOutlinedInput-root": {
         width: "100%",
       },
     },
-    "& .dropdown-wrapper": {
-      "& .MuiOutlinedInput-notchedOutline": {
-        borderRadius: "0",
-      },
-      "& .MuiInputBase-input": {
-        backgroundColor: colors.white,
-        height: "40px",
-        lineHeight: "40px",
-        borderRadius: "4px",
+  },
+  [theme.breakpoints.down("xs")]: {
+    "& .formCol": {
+      "&:not(:last-child)": {
+        marginBottom: theme.spacing(2),
       },
     },
   },

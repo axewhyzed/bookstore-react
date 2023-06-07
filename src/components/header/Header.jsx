@@ -244,7 +244,7 @@ const Header = () => {
                                     </b>
                                     <p
                                       style={{
-                                        width: "400px",
+                                        width: "250px",
                                         height: "40px",
                                         overflow: "hidden",
                                       }}
