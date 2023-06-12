@@ -34,6 +34,9 @@ To use this project locally, follow these steps:
 cd bookstore-react
 npm install
 ```
+
+## Usage
+
 3. Start the application:
 
 ```
