@@ -14,13 +14,10 @@ Users can browse through the book catalog, search for specific titles or authors
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Configuration](#configuration)
 - [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
 - [License](#license)
-- [Credits](#credits)
-- [Contact](#contact)
+
+<hr>
 
 ## Installation
 
@@ -43,5 +40,57 @@ npm install
 npm start
 ```
 
-## Usage
+<hr>
+
+## Features
 Once the application is running, you can access the following pages:
+
+### Login
+
+<kbd> <img src="/images/login.png" alt="Login Page Screenshot" /> </kbd>
+
+### Register
+
+<kbd> <img src="/images/register.png" alt="Register Page Screenshot" /> </kbd>
+
+Once registered, you can login to the web application and access the following pages :
+
+### Home page
+This page displays all the books listed on the web application
+
+<kbd> <img src="/images/homepage.png" alt="Homepage Screenshot" /> </kbd>
+
+### Update Profile page
+This page lets you update your profile details
+
+<kbd> <img src="/images/update-profile.png" alt="Update Profile page Screenshot" /> </kbd>
+
+### Cart page
+This page displays the books added to the cart along with total amount, ability to change quantity and place order
+
+<kbd> <img src="/images/cart.png" alt="Cart page Screenshot" /> </kbd>
+
+If you're logged in as an Seller into the web application, you can see the following page too :
+
+### Book page
+This page lets you add, edit, delete and modify the existing book details for the web application
+
+<kbd> <img src="/images/book.png" alt="Book page Screenshot" /> </kbd>
+
+When you log into the web application using an admin account, you can see these pages too :
+
+### Category page
+This page allows you to add, edit and delete the categories for the books listed on the web application
+
+<kbd> <img src="/images/category.png" alt="Category page Screenshot" /> </kbd>
+
+### User page
+This page allows you to edit and delete the users allowed to access the web page
+
+<kbd> <img src="/images/users.png" alt="User page Screenshot" /> </kbd>
+
+<hr>
+
+## License
+
+This project is licensed under the MIT License.
