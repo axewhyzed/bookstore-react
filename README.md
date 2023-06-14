@@ -4,20 +4,33 @@ Welcome to ReadWrite! This project is a web application that allows users to man
 
 ![Project Screenshot](/src/assets/new_logo.svg)
 
+## Table of Contents
+
+- [Description](#description)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies](#technologies)
+- [Pages](#pages)
+- [License](#license)
+
 ## Description
 
 Welcome to the Book Store! This web application is an online platform for book lovers to explore and purchase a wide range of books. It provides an immersive and user-friendly interface, offering an extensive collection of books across various genres.
 
 Users can browse through the book catalog, search for specific titles or authors, read book descriptions, and add books to their shopping cart. The application also offers option to update profile, as well as options to admin user to add, edit or delete users, books and categories.
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [License](#license)
-
 <hr>
+
+## Features
+
+- User registration and login
+- User management (CRUD operations)
+- Category management (CRUD operations)
+- Book management (CRUD operations)
+- Profile update
+- Shopping cart functionality
+- Order placement
 
 ## Installation
 
@@ -35,17 +48,37 @@ cd bookstore-react
 npm install
 ```
 
-## Usage
-
 3. Start the application:
 
 ```
 npm start
 ```
 
+## Usage
+
+1. Register a new user account or log in with an existing account.
+2. Explore the different sections of the application:
+   - User Management: Create, view, update, and delete user records.
+   - Category Management: Create, view, update, and delete category records.
+   - Book Management: Create, view, update, and delete book records.
+   - Profile Update: Update your personal information and password.
+   - Shopping Cart: Add books to the cart and place orders.
+3. Interact with the various forms and UI elements to perform desired actions.
+4. Navigate between different pages using the navigation menu.
+
+## Technologies
+
+- React.js
+- Material-UI
+- React Router
+- React Context API
+- HTML
+- CSS
+- JavaScript
+
 <hr>
 
-## Features
+## Pages
 Once the application is running, you can access the following pages:
 
 ### Login
